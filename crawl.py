@@ -6,11 +6,11 @@ import base64
 from lxml import etree
 import requests
 driver = webdriver.Chrome()
-profile_dir = r"C:\Users\ThinkPad\AppData\Local\Google\Chrome\User Data"
+profile_dir = r"C:\Users\12697\AppData\Local\Google\Chrome\User Data"#这里写google的userdata地址
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument("user-data-dir=" + os.path.abspath(profile_dir))
 driver = webdriver.Chrome(chrome_options=chrome_options)
-thunder_path = 'E:\Thunder\Program\Thunder.exe'
+thunder_path = 'C:\Program Files (x86)\Thunder Network\Thunder\Program\Thunder.exe'#这里写迅雷的exe地址
 
 def Url2Thunder(url):
     url = 'AA' + url + 'ZZ'
@@ -35,8 +35,8 @@ def download_with_thunder(file_url):
     subprocess.call([thunder_path, thunder_url])
 
 
-driver.get('https://www.pixiv.net/ranking.php?mode=monthly&content=illust')
-time.sleep(5)
+driver.get('https://www.pixiv.net/ranking.php?mode=daily&content=illust')
+time.sleep(30)
 page = driver.page_source
 #print(page)
 page = driver.page_source
@@ -53,13 +53,14 @@ for id in ids:
         #print(data_id)
         data_id = data_id.strip('master1200.jpg')
         data_id = data_id.strip('_')
-        #print(data_id)
+        # print(data_id)
         img_url1 = 'https://i.pximg.net/img-original/' + data_id + '.png'
         img_url2 = 'https://i.pximg.net/img-original/' + data_id + '.jpg'
-        print(img_url1)
-        print(img_url2)
-        download_with_thunder(img_url2)
         download_with_thunder(img_url1)
+        download_with_thunder(img_url2)
+        time.sleep(1)
+        #print(img_url1)
+        #print(img_url2)
         #https://i.pximg.net/c/240x480/img-master/img/2020/10/23/00/30/00/85177342_p0_master1200.jpg
         #https://i.pximg.net/img-original/img/2020/10/23/00/30/00/85177342_p0.jpg
 print(num)
